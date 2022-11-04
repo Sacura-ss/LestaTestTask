@@ -5,7 +5,8 @@ public delegate void PlayMusic();
 
 public class Lines
 {
-    public const int SIZE = 5;
+    public const int FIELD_SIZE = 5;
+    public const int NUMBER_UNITS = 5;
 
     private ShowBox showBox;
     private PlayMusic playMusic;
@@ -18,5 +19,9 @@ public class Lines
 
     public void Start() { }
 
-    public void Click(int x, int y) { }
+    public void Click(int x, int y)
+    {
+        showBox(x, y, (x + y) % NUMBER_UNITS);
+        playMusic();
+    }
 }
