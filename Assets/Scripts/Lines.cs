@@ -11,6 +11,11 @@ public class Lines
     private ShowBox showBox;
     private PlayMusic playMusic;
     private int[,] field;
+    private int movedFromX,
+        movedFromY;
+    private bool isAnimalSelected;
+    private const int BLOCK_ID = 3;
+    private const int EMPTY_ID = 0;
 
     public Lines(ShowBox showBox, PlayMusic playMusic)
     {
@@ -21,14 +26,21 @@ public class Lines
 
     public void Start()
     {
-        //ClearField();
         InitialFillingField();
+        isAnimalSelected = false;
     }
 
     public void Click(int x, int y)
     {
-        showBox(x, y, (x + y) % NUMBER_UNITS);
-        playMusic();
+        if (field[x, y] > 0)
+        {
+            TakeUnit(x, y);
+        }
+        else
+        {
+            MoveUnit(x, y);
+            playMusic();
+        }
     }
 
     public void InitialFillingField()
@@ -69,17 +81,35 @@ public class Lines
         SetField(3, 3, 0);
     }
 
-    private void ClearField()
+    private void TakeUnit(int x, int y)
     {
-        for (int i = 0; i < Lines.FIELD_SIZE * Lines.FIELD_SIZE; i++)
+        if (field[x, y] != BLOCK_ID)
         {
-            SetField(i % Lines.FIELD_SIZE, i / Lines.FIELD_SIZE, 0);
+            movedFromX = x;
+            movedFromY = y;
+            isAnimalSelected = true;
         }
+    }
+
+    private void MoveUnit(int x, int y)
+    {
+        if (!isAnimalSelected)
+            return;
+        if (!CanMove(x, y))
+            return;
+        SetField(x, y, field[movedFromX, movedFromY]);
+        SetField(movedFromX, movedFromY, EMPTY_ID);
     }
 
     private void SetField(int x, int y, int unit)
     {
         field[x, y] = unit;
         showBox(x, y, unit);
+    }
+
+    private bool CanMove(int x, int y)
+    {
+        // ДОПИСАТЬ
+        return true;
     }
 }
