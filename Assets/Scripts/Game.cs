@@ -13,6 +13,9 @@ public class Game : MonoBehaviour
     [SerializeField]
     AudioSource music;
 
+    [SerializeField]
+    Button resetButton;
+
     public void Start()
     {
         lines = new Lines(ShowBox, PlayMusic);
@@ -39,6 +42,11 @@ public class Game : MonoBehaviour
         int y = nr / Lines.FIELD_SIZE;
         Debug.Log($"click  + {name} {x} {y}");
         lines.Click(x, y);
+    }
+
+    public void Reset()
+    {
+        lines.InitialFillingField();
     }
 
     private void InitButtons()
