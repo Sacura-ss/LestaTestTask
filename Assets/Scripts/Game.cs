@@ -16,9 +16,12 @@ public class Game : MonoBehaviour
     [SerializeField]
     Button resetButton;
 
+    [SerializeField]
+    GameObject winPanel;
+
     public void Start()
     {
-        lines = new Lines(ShowBox, PlayMusic);
+        lines = new Lines(ShowBox, PlayMusic, StopGame);
         InitButtons();
         InitImages();
         lines.Start();
@@ -47,6 +50,11 @@ public class Game : MonoBehaviour
     public void Reset()
     {
         lines.InitialFillingField();
+    }
+
+    public void StopGame()
+    {
+        winPanel.SetActive(true);
     }
 
     private void InitButtons()

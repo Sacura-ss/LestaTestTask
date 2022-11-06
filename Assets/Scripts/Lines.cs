@@ -2,6 +2,7 @@ using System;
 
 public delegate void ShowBox(int x, int y, int unit);
 public delegate void PlayMusic();
+public delegate void StopGame();
 
 public class Lines
 {
@@ -10,6 +11,7 @@ public class Lines
 
     private ShowBox showBox;
     private PlayMusic playMusic;
+    private StopGame stopGame;
     private int[,] field;
     private int movedFromX,
         movedFromY;
@@ -20,10 +22,11 @@ public class Lines
     private const int RED_ID = 2;
     private const int BLUE_ID = 1;
 
-    public Lines(ShowBox showBox, PlayMusic playMusic)
+    public Lines(ShowBox showBox, PlayMusic playMusic, StopGame stopGame)
     {
         this.showBox = showBox;
         this.playMusic = playMusic;
+        this.stopGame = stopGame;
         field = new int[FIELD_SIZE, FIELD_SIZE];
     }
 
@@ -143,10 +146,5 @@ public class Lines
         if (yellowIsCollected && blueIsCollected && redIsCollected)
             return true;
         return false;
-    }
-
-    private void stopGame()
-    {
-        // ДОПИСАТЬ
     }
 }
